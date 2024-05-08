@@ -1,39 +1,39 @@
 import { Link, Stack } from 'expo-router';
 import { Image, Text, View, StyleSheet } from 'react-native';
-import Main from './main';
-function LogoTitle() {
-  return (
-    <Image style={styles.image} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
-  );
-}
+import Card from '../components/Card';
+import BottomCard from '../components/BottomCard';
+
 
 export default function Home() {
   return (
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          title: ' home',
-          headerStyle: { backgroundColor: '#f4511e' },
-          headerTintColor: '#fff',
+          title: false,
+          headerStyle: { backgroundColor: '#fff' },
+          headerTintColor: '#000',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
         //   headerTitle: props => <LogoTitle {...props} />,
         }}
       />
-      {/* <Main/> */}
+      <Card/>
+      <BottomCard/>
           <Link href='./Map'>Go to map page</Link>
 
      
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
+    padding:10
   },
   image: {
     width: 50,

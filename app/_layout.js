@@ -13,8 +13,8 @@ export default function Layout() {
             name="index"
             options={{
               drawerLabel: 'Home',
-              drawerIcon: ({ color, size }) => ( 
-                <Ionicons name="home-outline" size={size} color={color} />
+              drawerIcon: ({ color,  }) => ( 
+                <Ionicons name="home-outline" size={40} color={color} />
               )
             }}
           />

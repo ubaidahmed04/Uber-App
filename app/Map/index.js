@@ -1,5 +1,6 @@
 import { Link, Stack } from 'expo-router';
 import { Image, Text, View, StyleSheet } from 'react-native';
+import MapCard from '../../components/MapCard';
 function LogoTitle() {
   return (
     <Image style={styles.image} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
@@ -20,7 +21,8 @@ export default function Map() {
           },
         }}
       />
-      <Text>Map Screen</Text>
+      <MapCard/>
+      {/* <Text>Map Screen</Text> */}
       {/* <Link href='./main'>Go to Details</Link> */}
     </View>
   );
