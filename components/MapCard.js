@@ -1,19 +1,23 @@
 import { View, Text ,SafeAreaView, StyleSheet, TextInput} from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesome6 ,MaterialIcons,
 } from '@expo/vector-icons';
 import MapLocate from './../components/MapLocate';
 export default function mapCard() {
+  const [val,setVal] =useState('')
+// console.log(val)
   return (
     <View style={styles.mapContainer}>
       <View style={styles.mapView}>
-      <MapLocate/>
+      <MapLocate val={val}/>
       </View>
       <View style={styles.mapModal}>
-        <Text style={{fontSize:25,fontWeight:"bold",textAlign:"center",borderBlockColor:"#c3c3c3",borderBottomWidth:.5,paddingBottom:10}}>Good Morning, Ubaid</Text>
+        {/* <Text style={{fontSize:25,fontWeight:"bold",textAlign:"center",borderBlockColor:"#c3c3c3",borderBottomWidth:.5,paddingBottom:10}}>Good Morning, Ubaid</Text> */}
       <SafeAreaView>
       <TextInput
         style={styles.input}
+        onChangeText={(e)=>setVal(e)}
+        value={val}
       />
       </SafeAreaView>
       <View  style={styles.card1}>
