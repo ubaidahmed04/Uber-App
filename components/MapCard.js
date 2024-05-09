@@ -1,15 +1,16 @@
-import { View, Text ,SafeAreaView, StyleSheet, TextInput} from 'react-native'
+import { View, Text ,SafeAreaView, StyleSheet, TextInput, Button} from 'react-native'
 import React, { useState } from 'react'
 import { FontAwesome6 ,MaterialIcons,
 } from '@expo/vector-icons';
 import MapLocate from './../components/MapLocate';
 export default function mapCard() {
   const [val,setVal] =useState('')
-// console.log(val)
+  const [whereTo,setWhereto] =useState('')
+// console.log(whereTo)
   return (
     <View style={styles.mapContainer}>
       <View style={styles.mapView}>
-      <MapLocate val={val}/>
+      <MapLocate val={val} whereTo={whereTo}/>
       </View>
       <View style={styles.mapModal}>
         {/* <Text style={{fontSize:25,fontWeight:"bold",textAlign:"center",borderBlockColor:"#c3c3c3",borderBottomWidth:.5,paddingBottom:10}}>Good Morning, Ubaid</Text> */}
@@ -18,8 +19,20 @@ export default function mapCard() {
         style={styles.input}
         onChangeText={(e)=>setVal(e)}
         value={val}
+        placeholder='your location'
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={(e)=>setWhereto(e)}
+        value={whereTo}
+        placeholder='Where to go'
+
       />
       </SafeAreaView>
+      { !val ? <Button title='use my location' />:
+      <Button title='search'/>
+        
+      }
       <View  style={styles.card1}>
             <View >
         <MaterialIcons name="group-work" size={25} color="#000" />

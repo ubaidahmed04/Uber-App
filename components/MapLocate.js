@@ -1,17 +1,14 @@
 import React, { useEffect, useState,useCallback } from 'react';
 import { View, Text, SafeAreaView, TextInput, StyleSheet } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Polyline } from 'react-native-maps';
 import { debounce } from 'lodash';
-export default function MapLocate({ val }) {
+export default function MapLocate({ val, whereTo }) {
   const [data, setData] = useState([])
-  
-  
-  
+
   
        const fetchData = async (location) => {
-      console.log("success")
-        try {
-          
+       console.log("success")
+        try {          
             const response = await fetch(`https://api.foursquare.com/v3/places/search?near=${encodeURIComponent(location)}`, 
             {
                 method: 'GET',
@@ -41,15 +38,14 @@ export default function MapLocate({ val }) {
 
     React.useEffect(() => {
       // for the first render load
-      fetchData(val);
+      fetchData(val,whereTo);
     }, [val]);
     
-// console.log(val)
+console.log(whereTo);
   return (
     <View style={styles.container}>
       <MapView style={styles.map}>
         {data?.map(marker => ( 
-
           <Marker 
             key={marker?.id}
             coordinate={{ latitude: marker?.lat, longitude: marker?.lon }}
@@ -57,7 +53,9 @@ export default function MapLocate({ val }) {
             description={marker?.location}
           />
         ))}
+        
       </MapView>
+       
     </View>
   );
 }
