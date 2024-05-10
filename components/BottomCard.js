@@ -1,15 +1,16 @@
 import { View, Text,StyleSheet } from 'react-native'
 import React from 'react'
-import { FontAwesome6 ,MaterialIcons,
+import { FontAwesome6 ,Ionicons,Entypo
 } from '@expo/vector-icons';
 
 export default function BottomCard() {
   return (
     <View style={styles.container}>
-        <Text style={styles.text}>Go Again</Text>
+        <Text style={styles.text}>Go again</Text>
         <View  style={styles.card1}>
             <View style={{marginTop:18}}>
-        <MaterialIcons name="group-work" size={25} color="#000" />
+            <Entypo name="dribbble-with-circle" size={40} color="#c3c3c3" />
+
             </View>
         <View>
             <Text style={styles.bold}>Work</Text>
@@ -18,7 +19,7 @@ export default function BottomCard() {
         </View>
         <View  style={styles.card2}>
             <View style={{marginTop:18}}>
-        <FontAwesome6 name="street-view" size={25} color="#000" />
+            <Ionicons name="timer" size={40} color="#c3c3c3" />
             </View>
         <View>
             <Text style={styles.bold}>burnsRoad Street</Text>
@@ -35,17 +36,22 @@ const styles = StyleSheet.create({
       display:"flex",
       justifyContent:"flex-start",
       alignItems:"flex-start",
-      marginTop:15,
-    
-      
+      marginTop:15,   
     },
+    text:{
+      fontSize:15,
+      fontWeight:"bold",
+      color:"#AEAEAE",
+      marginBottom:16,
+      marginLeft:10,
+  },
     card1:{
       width:"100%",
       display:"flex",
       flexDirection:"row",
-    //   alignItems:"center",
+      alignItems:"center",
     gap:9,
-      height:70,
+      height:100,
       borderBottomColor:"#c3c3c3",
       borderBottomWidth:.5,
     backgroundColor: '#F6F6F6',
@@ -54,9 +60,9 @@ const styles = StyleSheet.create({
         width:"100%",
         display:"flex",
         flexDirection:"row",
-      //   alignItems:"center",
-      gap:9,
-        height:70,
+        alignItems:"center",
+        gap:9,
+        height:100,
         borderBottomColor:"#c3c3c3",
         borderBottomWidth:.5,
       backgroundColor: '#F6F6F6',
@@ -69,13 +75,9 @@ const styles = StyleSheet.create({
     },
     light:{
         fontSize:12,
-        color:"#D9D9D9"
-    },
-    text:{
-        fontSize:16,
-        fontWeight:"bold",
-        color:"#ACACAC"
-    }
+        color:"#AEAEAE",
 
+    },
+    
 
 })

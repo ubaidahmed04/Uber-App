@@ -2,19 +2,21 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons,MaterialCommunityIcons } from '@expo/vector-icons';
+import DrawerContent from "./../components/DrawerContent";
 
 export default function Layout() {
   return (
     <View style={{ flex: 1 }}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <Drawer>
+      {/* <Drawer.Navigator > */}
+        <Drawer drawerContent={DrawerContent}>
           <Drawer.Screen
             name="index"
             options={{
               drawerLabel: 'Home',
               drawerIcon: ({ color,  }) => ( 
-                <Ionicons name="home-outline" size={40} color={color} />
+                <MaterialCommunityIcons name="home" size={40} color={color} />
               )
             }}
           />
@@ -28,6 +30,7 @@ export default function Layout() {
             }}
           /> */}
         </Drawer>
+         {/* </Drawer.Navigator> */}
       </GestureHandlerRootView>
     </View>
   );
