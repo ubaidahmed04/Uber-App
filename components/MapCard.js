@@ -13,13 +13,14 @@ import * as Location from "expo-location";
 
 export default function mapCard() {
   const [val, setVal] = useState("");
-  const [whereTo, setWhereto] = useState("");
+  const [whereTo, setWhereTo] = useState("");
   const [data, setData] = useState([]);
-  const [location, setLocation] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [location, setLocation] = useState({});
+  const [whereToLocation, setWhereToLocation] = useState(null);
+  const [isTrue, setIsTrue] = useState(false);
 
   const getLocation = async () => {
-    console.log("triggered --> ", location)
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       setErrorMsg("Permission to access location was denied");
@@ -27,9 +28,7 @@ export default function mapCard() {
     }
     try {
       let locationData = await Location.getCurrentPositionAsync({});
-      // let arr = []
-      // arr = arr.push(locationData)
-      setLocation([...location, locationData]);
+      setLocation(locationData.coords);
       setErrorMsg(null);
     } catch (error) {
       console.error("Error getting location: ", error);
@@ -42,16 +41,15 @@ export default function mapCard() {
   }, []);
 
   const handleGetLocation = () => {
+    setVal("your device location");
     getLocation();
   };
 
-
   const fetchData = async (location) => {
     try {
+      const encodedLocation = encodeURIComponent(location);
       const response = await fetch(
-        `https://api.foursquare.com/v3/places/search?near=${encodeURIComponent(
-          location
-        )}`,
+        `https://api.foursquare.com/v3/places/search?near=${encodedLocation}`,
         {
           method: "GET",
           headers: {
@@ -60,37 +58,42 @@ export default function mapCard() {
           },
         }
       );
-      const res = await response.json();
-      const updateData = res?.results?.slice(0, 8).map((data) => {
-        let obj = {
-          longitude: data.geocodes?.main?.longitude,
-          latitude: data.geocodes?.main?.latitude,
-          id: data.fsq_id,
-          distance: data.distance,
-          location: data.location?.address,
-          name: data.name,
-        };
-        return obj;
-      });
+      // if (!response.ok) {
+      //   throw new Error("Network response was not ok");
+      // }
+
+      const responseData = await response.json();
+
+      const updateData = responseData?.results?.slice(0, 4).map((data) => ({
+        longitude: data?.geocodes?.main?.longitude,
+        latitude: data?.geocodes?.main?.latitude,
+        id: data?.fsq_id,
+        distance: data?.distance,
+        location: data?.location?.address,
+        name: data?.name,
+      }));
+
+      console.log(updateData)
       setData(updateData);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      setIsTrue(false);
+      console.error("Error fetching data:", error.message);
     }
   };
 
-  React.useEffect(() => {
-    fetchData(val, whereTo);
-  }, [val]);
+  useEffect(() => {
+    fetchData(whereTo);
+  }, [whereTo]);
+
+  // useEffect(() => {
+  //   console.log(location);
+  //   console.log(whereToLocation);
+  // }, [whereTo]);
 
   return (
     <View style={styles.mapContainer}>
       <View style={styles.mapView}>
-        <MapLocate
-          val={val}
-          whereTo={whereTo}
-          // data={data}
-          location={location}
-        />
+        <MapLocate whereTo={whereToLocation} location={location} />
       </View>
       <View style={styles.mapModal}>
         <SafeAreaView>
@@ -103,17 +106,27 @@ export default function mapCard() {
             />
             <TextInput
               style={styles.input}
-              onChangeText={(e) => setWhereto(e)}
+              onChangeText={(e) => {
+                setIsTrue(true);
+                setWhereTo(e);
+              }}
               value={whereTo}
               placeholder="Where to go"
             />
-            {!val ? (
-              <Button
-                title="use my location"
-                onPress={handleGetLocation}
-              />
-            ) : (
-              <Button title="search" />
+            {isTrue &&
+              data.map((v) => (
+                <Button
+                  key={v.id}
+                  onPress={() => {
+                    setIsTrue(false);
+                    setWhereToLocation(v);
+                    setWhereTo(v.location);
+                  }}
+                  title={v.location}
+                />
+              ))}
+            {!val && (
+              <Button title="use my location" onPress={handleGetLocation} />
             )}
           </View>
         </SafeAreaView>
@@ -153,12 +166,9 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     display: "flex",
-
-    // backgroundColor:"blue"
   },
   mapView: {
     flex: 0.5,
-    // backgroundColor:"red"
   },
   mapModal: {
     flex: 0.5,
