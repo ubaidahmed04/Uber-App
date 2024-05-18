@@ -1,15 +1,33 @@
-import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  Link,
+  Pressable,
+} from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+
 import {
   Ionicons,
   FontAwesome6,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-
+// import home from "../app/index";
 const drawerBg = require("../assets/avatar2.png");
 const Bg = require("../assets/bg.png");
 
 export default function DrawerContent() {
+  const navigation = useNavigation();
+
+  const onPressHome = () => {
+    navigation.navigate("Home"); // Assuming 'Map' is the name of your Map screen
+  };
+  const onPressMap = () => {
+    navigation.navigate("Map"); // Assuming 'Map' is the name of your Map screen
+  };
   return (
     <View style={Styles.container}>
       <ImageBackground source={Bg} style={Styles.backgroundImage}>
@@ -35,10 +53,9 @@ export default function DrawerContent() {
           </View>
 
           <View>
-            <Text style={{ color: "#747B83", fontSize: 15 ,}}>
-              {/* <MaterialCommunityIcons name="home" size={40} color={"#747B83"} /> */}
-              Home
-            </Text>
+            <Pressable >
+              <Text style={{ color: "#747B83", fontSize: 15 }}>Home</Text>
+            </Pressable>
           </View>
         </View>
         <View style={Styles.mapTab}>
@@ -50,7 +67,9 @@ export default function DrawerContent() {
             />
           </View>
           <View>
-            <Text style={{ color: "#747B83", fontSize: 15 }}>Map</Text>
+            <Pressable onPress={onPressMap}>
+              <Text style={{ color: "#747B83", fontSize: 15 }}>Map</Text>
+            </Pressable>
           </View>
         </View>
       </View>
@@ -68,8 +87,7 @@ const Styles = StyleSheet.create({
     padding: 10,
     resizeMode: "contain",
     height: 250,
-    opacity:0.8,
-
+    opacity: 0.8,
   },
   profile: {
     display: "flex",
@@ -89,15 +107,14 @@ const Styles = StyleSheet.create({
     marginTop: 30,
     // marginVertical: 20,
     paddingHorizontal: 20,
-    gap:20,
-    justifyContent:"flex-start",
-    
+    gap: 20,
+    justifyContent: "flex-start",
   },
   homeTab: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    borderBottomWidth: .5,
+    borderBottomWidth: 0.5,
     borderBottomColor: "#c3c3c3",
     gap: 30,
   },

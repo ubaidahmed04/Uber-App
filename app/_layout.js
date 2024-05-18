@@ -11,7 +11,7 @@ export default function Layout() {
       <GestureHandlerRootView style={{ flex: 1 }}>
       {/* <Drawer.Navigator > */}
         <Drawer drawerContent={DrawerContent}>
-          <Drawer.Screen
+          {/* <Drawer.Screen
             name="index"
             options={{
               drawerLabel: 'Home',
@@ -19,7 +19,7 @@ export default function Layout() {
                 <MaterialCommunityIcons name="home" size={40} color={color} />
               )
             }}
-          />
+          /> */}
           {/* <Drawer.Screen
             name="Setting"
             options={{

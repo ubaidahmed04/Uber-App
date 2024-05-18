@@ -2,6 +2,7 @@ import { Link, Stack } from "expo-router";
 import { Image, Text, View, StyleSheet } from "react-native";
 import Card from "../components/Card";
 import BottomCard from "../components/BottomCard";
+import Navigation from "../components/Navigation";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         }}
       />
       <Card />
+     <Navigation/>
       <BottomCard />
     </View>
   );

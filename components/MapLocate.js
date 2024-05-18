@@ -33,11 +33,7 @@ export default function MapLocate({ whereTo, location }) {
               description="This is Marker 1"
             />
           ))}
-        {/* <Marker
-            title="This is marker"
-            coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-            description="This is Marker 1"
-          /> */}
+        
       </MapView>
     </View>
   );
